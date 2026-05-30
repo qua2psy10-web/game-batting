@@ -322,6 +322,7 @@ class GameManager {
     
     // Reset bat judgment status
     this.batter.hasJudged = false;
+    this.hasTriggeredHit = false; // Reset hit flag for the new pitch
     this.ball.reset();
     
     // Select random pitch parameters
@@ -379,12 +380,12 @@ class GameManager {
     // Core game rules monitoring:
     if (this.isBallActive) {
       // 1. Monitor bat contact trigger
-      if (this.batter.isSwinging && this.batter.hasJudged && this.ball.isBatted) {
-        // Triggered contact collision in Batter.js
+      if (this.batter.isSwinging && this.batter.hasJudged && this.ball.isBatted && !this.hasTriggeredHit) {
+        this.hasTriggeredHit = true;
         this.handleSuccessfulHit();
       }
       
-      // 2. Monitor swing miss or ball pass (strike zone exit)
+      // 2. Monitor swing miss, ball pass, or batted ball landing
       if (this.ball.isDead) {
         this.isBallActive = false;
         this.handlePitchEnded();
@@ -393,7 +394,7 @@ class GameManager {
   }
 
   handleSuccessfulHit() {
-    this.isBallActive = false; // Ball is under batted flight status now, not pitch zone
+    // Keep this.isBallActive true to monitor ball landing (isDead)
     
     const hit = this.batter.lastHitResult;
     if (!hit) return;
