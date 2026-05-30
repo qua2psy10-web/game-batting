@@ -340,11 +340,12 @@ class GameManager {
     }
     
     // Generate speed corresponding to pitch type (km/h)
-    let speed = 145 + Math.random() * 15; // Fastball default (145 - 160)
+    // Slightly slower speeds to make it easier to visually track and hit
+    let speed = 130 + Math.random() * 15; // Fastball default (130 - 145)
     if (type === PITCH_TYPES.CURVEBALL) {
-      speed = 120 + Math.random() * 15;
+      speed = 105 + Math.random() * 15;
     } else if (type === PITCH_TYPES.FORKBALL) {
-      speed = 130 + Math.random() * 15;
+      speed = 115 + Math.random() * 15;
     }
     
     // Target location inside or slightly outside strike zone

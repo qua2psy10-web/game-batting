@@ -21,7 +21,7 @@ export class Batter {
     this.hasJudged = false; // Prevents double hitting on same swing
     
     // Normal contact area parameters (Meat radius)
-    this.meatRadius = 14; 
+    this.meatRadius = 18; 
     
     // For rendering bat swing arc
     this.batAngle = Math.PI; // Swings from right to left (PI to 0)
@@ -95,10 +95,10 @@ export class Batter {
     
     // Ideal batting depth (Z) is 96 to 101.
     // Check if ball is in the hitting frame.
-    // If ball is too far (Z < 92) or too past (Z > 105), it's automatically a miss.
+    // If ball is too far (Z < 88) or too past (Z > 107), it's automatically a miss.
     const timingDiff = Math.abs(bz - 97.5);
     
-    if (timingDiff > 6.0) {
+    if (timingDiff > 9.5) {
       // Too early or too late
       this.lastHitResult = { type: 'MISS', message: bz < 92.5 ? 'TOO EARLY' : 'TOO LATE', speed: 0, dist: 0 };
       this.ball.isSwingMiss = true;
@@ -111,23 +111,23 @@ export class Batter {
     const distance = Math.sqrt(dx * dx + dy * dy);
     
     // Evaluation Logic
-    // Perfect: Distance < 6, TimingDiff < 2
-    // Great: Distance < 12, TimingDiff < 4
-    // Good: Distance < 22, TimingDiff < 5.5
+    // Perfect: Distance < 10, TimingDiff < 3
+    // Great: Distance < 20, TimingDiff < 6
+    // Good: Distance < 30, TimingDiff < 9.2
     
     let score = 0;
     let hitType = 'MISS';
     let label = 'MISS';
     
-    if (distance < 7.5 && timingDiff < 2.0) {
+    if (distance < 10.0 && timingDiff < 3.0) {
       hitType = 'PERFECT';
       label = 'PERFECT!';
       score = 3;
-    } else if (distance < 15.0 && timingDiff < 3.8) {
+    } else if (distance < 20.0 && timingDiff < 6.0) {
       hitType = 'GREAT';
       label = 'GREAT!';
       score = 2;
-    } else if (distance < 24.0 && timingDiff < 5.8) {
+    } else if (distance < 30.0 && timingDiff < 9.2) {
       hitType = 'GOOD';
       label = 'GOOD';
       score = 1;
