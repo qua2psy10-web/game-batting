@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>CYBER BATTING DERBY</title>
+    <!-- Google Fonts for Cyberpunk/Sci-Fi aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app" class="game-container">
+      <!-- 1. TITLE SCREEN -->
+      <div id="title-screen" class="screen active">
+        <div class="glow-logo">
+          <span class="logo-sub">NEON ARENA</span>
+          <h1 class="logo-main">CYBER<br>BATTING</h1>
+          <span class="logo-version">v1.0.0</span>
+        </div>
+        <div class="high-score-container">
+          <span class="label">RECORD:</span>
+          <span id="global-high-score" class="value">000,000 m</span>
+        </div>
+        <button id="start-btn" class="cyber-btn neon-blue-glow">
+          <span class="btn-text">CONNECT SYSTEM</span>
+          <span class="btn-glitch"></span>
+        </button>
+        <div class="instructions">
+          <h3>[ HOW TO PLAY ]</h3>
+          <p>1. 左下のコントローラーをドラッグして<br><span class="highlight-blue">エイムカーソル</span>を動かす。</p>
+          <p>2. ボールがストライクゾーンに来る<br>タイミングで右下の<span class="highlight-pink">SWING!</span>をタップ。</p>
+          <p>3. 制限時間内に何本のホームランを<br>叩き込めるか挑戦しろ！</p>
+        </div>
+      </div>
+
+      <!-- 2. GAMEPLAY SCREEN -->
+      <div id="game-screen" class="screen">
+        <header class="game-header">
+          <div class="header-item">
+            <span class="label">SCORE</span>
+            <span id="score-val" class="value text-neon-blue">0</span>
+          </div>
+          <div class="header-item timer-item">
+            <span class="label">TIME LIMIT</span>
+            <span id="timer-val" class="value text-neon-pink">60s</span>
+          </div>
+          <div class="header-item">
+            <span class="label">BALLS</span>
+            <span id="balls-val" class="value">0/10</span>
+          </div>
+        </header>
+
+        <!-- Canvas for the 3D-like gameplay -->
+        <div class="canvas-wrapper">
+          <canvas id="game-canvas"></canvas>
+          <!-- Score Feedback Overlay (Combo, HR! etc) -->
+          <div id="feedback-overlay" class="feedback-overlay"></div>
+        </div>
+
+        <!-- Combo and distance notifications -->
+        <div class="hud-center">
+          <div id="combo-display" class="hud-combo hidden">
+            <span id="combo-count">0</span><span class="combo-label">COMBO</span>
+          </div>
+          <div id="hit-info" class="hud-hit-info hidden">
+            <span id="hit-judge" class="judge-perfect">PERFECT!</span>
+            <span id="hit-distance">0m</span>
+          </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="game-controls">
+          <div class="control-pad-wrapper">
+            <div class="pad-label">AIM PAD (DRAG)</div>
+            <div id="aim-pad" class="aim-pad">
+              <div id="aim-joystick" class="aim-joystick"></div>
+            </div>
+          </div>
+          <button id="swing-btn" class="swing-btn neon-pink-glow">
+            <span class="swing-btn-text">SWING!</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 3. GAMEOVER SCREEN -->
+      <div id="gameover-screen" class="screen">
+        <div class="gameover-header">
+          <span class="gameover-sub">SYSTEM OFFLINE</span>
+          <h2 class="gameover-main">GAME OVER</h2>
+        </div>
+        
+        <div class="stats-board">
+          <div class="stats-row">
+            <span class="label">TOTAL SCORE</span>
+            <span id="final-score" class="value text-neon-blue">0</span>
+          </div>
+          <div class="stats-row">
+            <span class="label">TOTAL DISTANCE</span>
+            <span id="final-distance" class="value text-neon-pink">0 m</span>
+          </div>
+          <div class="stats-row">
+            <span class="label">MAX COMBO</span>
+            <span id="final-combo" class="value text-neon-green">0</span>
+          </div>
+          <div class="stats-row">
+            <span class="label">HOMERUNS</span>
+            <span id="final-homeruns" class="value">0</span>
+          </div>
+        </div>
+
+        <div id="new-record-banner" class="new-record-banner hidden">
+          <span>NEW RECORD ESTABLISHED</span>
+        </div>
+
+        <div class="gameover-actions">
+          <button id="retry-btn" class="cyber-btn neon-pink-glow">
+            <span class="btn-text">REBOOT SYSTEM</span>
+          </button>
+          <button id="exit-btn" class="cyber-btn outline">
+            <span class="btn-text">TERMINATE</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
